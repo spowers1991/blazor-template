@@ -1,0 +1,50 @@
+@using BlazorApp.Components.HTML.Table
+@using BlazorApp.Components.HTML.Tbody
+@using BlazorApp.Components.HTML.Thead
+@using BlazorApp.Components.HTML.Tr
+@using BlazorApp.Components.HTML.Th
+@using BlazorApp.Components.HTML.Td
+@using WeatherForecastModel = BlazorApp.Services.Weather.Models.WeatherData
+
+<Table>
+    <Thead>
+        <Tr>
+            <Th>
+                Date
+            </Th>
+            <Th aria-label="Temperature in Celsius">
+                Temp. (C)
+            </Th>
+            <Th aria-label="Temperature in Fahrenheit">
+                Temp. (F)
+            </Th>
+            <Th>
+                Summary
+            </Th>
+        </Tr>
+    </Thead>
+    <Tbody>
+        @foreach (var forecast in WeatherData)
+        {
+            <Tr>
+                <Td>
+                    @forecast.Date.ToShortDateString()
+                </Td>
+                <Td>
+                    @forecast.TemperatureC
+                </Td>
+                <Td>
+                    @forecast.TemperatureF
+                </Td>
+                <Td>
+                    @forecast.Summary
+                </Td>
+            </Tr>
+        }
+    </Tbody>
+</Table>
+
+@code {
+    [Parameter]
+    public WeatherForecastModel[] WeatherData { get; set; } = Array.Empty<WeatherForecastModel>();
+}
