@@ -1,8 +1,11 @@
-<Th>
+<th @attributes="AdditionalAttributes">
     @ChildContent
-</Th>
+</th>
 
 @code {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 }

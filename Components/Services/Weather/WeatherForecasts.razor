@@ -1,8 +1,0 @@
-@using WeatherForecastModel = BlazorApp.Services.Weather.Models.WeatherData;
-
-<WeatherTable WeatherData="WeatherData" />
-
-@code {
-    [Parameter]
-    public WeatherForecastModel[] WeatherData { get; set; } = Array.Empty<WeatherForecastModel>();
-}

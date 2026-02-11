@@ -4,7 +4,7 @@
 @using BlazorApp.Components.HTML.Tr
 @using BlazorApp.Components.HTML.Th
 @using BlazorApp.Components.HTML.Td
-@using WeatherForecastModel = BlazorApp.Services.Weather.Models.WeatherData
+@using BlazorApp.Services.Weather.Forecasts.Forecast.Models.WeatherData
 
 <Table>
     <Thead>
@@ -46,5 +46,5 @@
 
 @code {
     [Parameter]
-    public WeatherForecastModel[] WeatherData { get; set; } = Array.Empty<WeatherForecastModel>();
+    public WeatherData[] WeatherData { get; set; } = Array.Empty<WeatherData>();
 }

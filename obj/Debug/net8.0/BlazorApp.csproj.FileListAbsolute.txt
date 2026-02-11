@@ -1,8 +1,3 @@
-F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.GeneratedMSBuildEditorConfig.editorconfig
-F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfoInputs.cache
-F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfo.cs
-F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.csproj.CoreCompileInputs.cache
-F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.MvcApplicationPartsAssemblyInfo.cache
 F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\appsettings.Development.json
 F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\appsettings.json
 F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\global.json
@@ -12,6 +7,12 @@ F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\BlazorApp.deps.json
 F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\BlazorApp.runtimeconfig.json
 F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\BlazorApp.dll
 F:\Projects\blazor\BlazorApp\bin\Debug\net8.0\BlazorApp.pdb
+F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfoInputs.cache
+F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfo.cs
+F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.csproj.CoreCompileInputs.cache
+F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.MvcApplicationPartsAssemblyInfo.cache
+F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\BlazorApp.sourcelink.json
 F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\staticwebassets.build.json
 F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\staticwebassets.development.json
 F:\Projects\blazor\BlazorApp\obj\Debug\net8.0\staticwebassets\msbuild.BlazorApp.Microsoft.AspNetCore.StaticWebAssets.props
