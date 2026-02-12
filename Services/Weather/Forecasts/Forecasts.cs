@@ -5,9 +5,16 @@ namespace BlazorApp.Services.Weather.Forecasts;
 
 public class Forecasts
 {
-    public static IEnumerable<WeatherData> GetForecasts()
-    {
-        return WeatherAPI.GetForecasts();
-    }
+    private WeatherData[]? _forecasts;
     
+    public WeatherData[] GetForecasts()
+    {
+        // Cache the data on first call
+        if (_forecasts == null)
+        {
+            _forecasts = WeatherAPI.GetForecasts()?.ToArray();
+        
+        }
+        return _forecasts ?? Array.Empty<WeatherData>();
+    }
 }

@@ -1,5 +1,4 @@
 ﻿@page "/weather"
-@rendermode InteractiveServer
 @inject IJSRuntime JS
 
 @using BlazorApp.Components.Services.Weather.Forecasts.WeatherTable
@@ -9,36 +8,35 @@
 
 @using BlazorApp.Components.Services.Weather.Forecasts;
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>
+    Weather
+</PageTitle>
 
-<h1>Weather</h1>
+<h1>
+    Weather
+</h1>
 
-<p>This component demonstrates showing data.</p>
+<p>
+    This component demonstrates showing data.
+</p>
 
 @code {
-    private WeatherData[]? weatherData;
-
-    protected override void OnInitialized()
-    {
-        weatherData = Forecasts.GetForecasts()?.ToArray();
-    }
+    [CascadingParameter]
+    public WeatherData[] forecasts { get; set; } = Array.Empty<WeatherData>();
 
     private async Task LogForecasts()
     {
-        if (weatherData != null)
-        {
-            await JS.InvokeVoidAsync("console.log", weatherData);
-        }
+         await JS.InvokeVoidAsync("console.log", forecasts);
     }
-        private async Task LogTest()
-        {
-            await JS.InvokeVoidAsync("console.log", "Test log from Weather.razor");
-        }
 }
 
-@if (weatherData == null)
+@if (forecasts.Length == 0)
 {
-    <p><em>Loading...</em></p>
+    <p>
+        <em>
+            Loading...
+        </em>
+    </p>
 }
 else
 {
@@ -46,9 +44,5 @@ else
         Log Forecasts to Console
     </button>
 
-        <button class="btn btn-secondary mb-3" @onclick="LogTest">
-            Log Test to Console
-        </button>
-
-    <WeatherTable WeatherData="weatherData" />
+    <WeatherTable />
 }

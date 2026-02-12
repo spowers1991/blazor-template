@@ -1,6 +1,6 @@
 using WeatherData = BlazorApp.Services.Weather.Forecasts.Forecast.Models.WeatherData.WeatherData;
 
-namespace BlazorApp.Services.Weather.Forecasts.Actions
+namespace BlazorApp.Services.Weather.Forecasts.Actions.Builders
 {
     public static class ForecastArrayBuilder
     {

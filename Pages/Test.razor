@@ -1,4 +1,17 @@
+
 @page "/test"
+
+@inject IJSRuntime JS
 
 <h1>Test Page</h1>
 <p>This is a simple test page to verify routing works.</p>
+
+@code {
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("console.log", "Test.razor loaded!");
+		}
+	}
+}
