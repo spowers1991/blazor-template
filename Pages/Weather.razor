@@ -1,18 +1,15 @@
-﻿@page "/weather"
+﻿
+@page "/weather"
 @inject IJSRuntime JS
-
+@inject HttpClient Http
 @using BlazorApp.Components.Services.Weather.Forecasts.WeatherTable
-@using BlazorApp.Services.Weather
-@using BlazorApp.Services.Weather.Forecasts;
-@using BlazorApp.Services.Weather.Forecasts.Forecast.Models.WeatherData;
-
-@using BlazorApp.Components.Services.Weather.Forecasts;
+@using BlazorApp.Services.Weather.Forecasts.Forecast.Types
 
 <PageTitle>
     Weather
 </PageTitle>
 
-<h1>
+<H1>
     Weather
 </h1>
 
@@ -20,29 +17,25 @@
     This component demonstrates showing data.
 </p>
 
-@code {
-    [CascadingParameter]
-    public WeatherData[] forecasts { get; set; } = Array.Empty<WeatherData>();
 
-    private async Task LogForecasts()
-    {
-         await JS.InvokeVoidAsync("console.log", forecasts);
-    }
-}
 
-@if (forecasts.Length == 0)
+@if (forecasts == null || forecasts.Length == 0)
 {
-    <p>
-        <em>
-            Loading...
-        </em>
-    </p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-    <button class="btn btn-primary mb-3" @onclick="LogForecasts">
-        Log Forecasts to Console
-    </button>
+    <CascadingValue Value="forecasts">
+        <WeatherTable  />
+    </CascadingValue>
+}
 
-    <WeatherTable />
+
+@code {
+    private Forecast[] forecasts = Array.Empty<Forecast>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<Forecast[]>("api/Forecasts") ?? Array.Empty<Forecast>();
+    }
 }

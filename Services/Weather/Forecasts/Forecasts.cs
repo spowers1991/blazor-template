@@ -1,20 +1,32 @@
-using BlazorApp.Services.Weather.Forecasts.Forecast.Models.WeatherData;
-using BlazorApp.Services.Weather.Forecasts.API;
+using Microsoft.AspNetCore.Mvc;
 
-namespace BlazorApp.Services.Weather.Forecasts;
+namespace BlazorApp.Services.Weather.Forecasts;     
 
-public class Forecasts
+[ApiController]
+[Route("api/[controller]")]
+public class Forecasts : ControllerBase
 {
-    private WeatherData[]? _forecasts;
-    
-    public WeatherData[] GetForecasts()
+    public static Forecast.Types.Forecast[]? _forecasts;
+
+    [HttpGet]
+    public ActionResult<Forecast.Types.Forecast[]> GetAll()
     {
         // Cache the data on first call
         if (_forecasts == null)
         {
-            _forecasts = WeatherAPI.GetForecasts()?.ToArray();
-        
+            _forecasts = Actions.Get.GetForecasts.Execute();
         }
-        return _forecasts ?? Array.Empty<WeatherData>();
+        return Ok(_forecasts ?? Array.Empty<Forecast.Types.Forecast>());
+    }
+
+    [HttpGet("log")]
+    public IActionResult LogForecasts()
+    {
+        foreach (var forecast in _forecasts)
+        {
+            System.Diagnostics.Debug.WriteLine($"Date: {forecast.Date}, TemperatureC: {forecast.TemperatureC}, Summary: {forecast.Summary}");
+        }
+        return Ok();
+
     }
 }
