@@ -1,12 +1,21 @@
 using BlazorApp.Components;
 using BlazorApp.Services.Weather.Forecasts;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddControllers();
 builder.Services.AddSingleton<BlazorApp.Services.Weather.Forecasts.Forecasts>();
+builder.Services.AddHttpClient("Default", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["AppBaseUrl"] ?? builder.Configuration["ASPNETCORE_URLS"] ?? "https://localhost:5001/");
+});
+
+builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Default"));
 
 var app = builder.Build();
 
@@ -22,6 +31,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.MapControllers();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 

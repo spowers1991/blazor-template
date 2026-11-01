@@ -4,8 +4,7 @@
 @using BlazorApp.Components.HTML.Tr
 @using BlazorApp.Components.HTML.Th
 @using BlazorApp.Components.HTML.Td
-@using BlazorApp.Services.Weather.Forecasts.Forecast.Models.WeatherData
-@using BlazorApp.Services.Weather.Forecasts
+@using BlazorApp.Services.Weather.Forecasts.Forecast.Types
 
 @inject IJSRuntime JS
 
@@ -27,7 +26,7 @@
         </Tr>
     </Thead>
     <Tbody>
-        @foreach (var forecast in forcasts)
+        @foreach (var forecast in forecasts)
         {
             <Tr>
                 <Td>
@@ -49,10 +48,6 @@
 
 @code {
     [CascadingParameter]
-    public WeatherData[] forcasts { get; set; } = Array.Empty<WeatherData>();
+    public Forecast[] forecasts { get; set; } = Array.Empty<Forecast>();
 
-    protected override void OnInitialized()
-    {
-        Console.WriteLine($"console.log: {forcasts}");
-    }
 }

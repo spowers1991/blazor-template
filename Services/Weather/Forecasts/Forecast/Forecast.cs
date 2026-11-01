@@ -1,18 +1,15 @@
-using BlazorApp.Services.Weather.Forecasts.Forecast.Models.WeatherData;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorApp.Services.Weather.Forecasts.Forecast;
 
-public class Forecast
+[ApiController]
+[Route("api/[controller]")]
+public class Forecast : ControllerBase
 {
-    public static WeatherData Create(
-        DateOnly startDate,
-        int index,
-        string[] summaries)
+    [HttpGet]
+    public ActionResult<Forecast> GetForecast()
     {
-        return new WeatherData(
-            startDate.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        );
+        var forecastData = Actions.Get.GetForecastData.Execute();
+        return Ok(forecastData);
     }
 }
