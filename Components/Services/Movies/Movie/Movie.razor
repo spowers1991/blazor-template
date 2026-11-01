@@ -1,0 +1,13 @@
+@using BlazorApp.Components.HTML.Tr
+@using BlazorApp.Components.HTML.Td
+@using MovieModel = BlazorApp.Services.Movies.Movie.Types.Movie
+
+<Tr>
+    <Td>@Data.Title</Td>
+    <Td>@Data.ReleaseDate</Td>
+</Tr>
+
+@code {
+    [Parameter, EditorRequired]
+    public MovieModel Data { get; set; } = default!;
+}

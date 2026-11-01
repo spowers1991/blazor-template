@@ -1,0 +1,27 @@
+@using BlazorApp.Components.HTML.Table
+@using BlazorApp.Components.HTML.Tbody
+@using BlazorApp.Components.HTML.Thead
+@using BlazorApp.Components.HTML.Tr
+@using BlazorApp.Components.HTML.Th
+@using BlazorApp.Components.Services.Movies.Movie
+@using MovieModel = BlazorApp.Services.Movies.Movie.Types.Movie
+
+<Table>
+    <Thead>
+        <Tr>
+            <Th>Title</Th>
+            <Th>Release date</Th>
+        </Tr>
+    </Thead>
+    <Tbody>
+        @foreach (MovieModel movie in movies)
+        {
+            <Movie Data="movie" />
+        }
+    </Tbody>
+</Table>
+
+@code {
+    [CascadingParameter]
+    public MovieModel[] movies { get; set; } = Array.Empty<MovieModel>();
+}

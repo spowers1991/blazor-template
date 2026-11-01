@@ -1,0 +1,49 @@
+@page "/movies"
+@inject HttpClient Http
+@inject IJSRuntime JS
+@using BlazorApp.Services.Movies.Movie.Types
+@using BlazorApp.Components.HTML.H1
+@using BlazorApp.Components.HTML.P
+@using BlazorApp.Components.Services.Movies.MoviesTable
+
+<PageTitle>
+    Movies
+</PageTitle>
+
+<H1>
+    Movies
+</H1>
+
+@if (movies == null)
+{
+    <P><em>Loading...</em></P>
+}
+else if (movies.Length == 0)
+{
+    <P>No movies found.</P>
+}
+else
+{
+    <CascadingValue Value="movies">
+        <MoviesTable />
+    </CascadingValue>
+}
+
+@code {
+    private Movie[]? movies;
+    private bool logged;
+
+    protected override async Task OnInitializedAsync()
+    {
+        movies = await Http.GetFromJsonAsync<Movie[]>("api/Movies/all");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (movies != null && !logged)
+        {
+            logged = true;
+            await JS.InvokeVoidAsync("console.log", "Sanity movies:", movies);
+        }
+    }
+}

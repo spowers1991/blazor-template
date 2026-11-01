@@ -1,4 +1,5 @@
 using BlazorApp.Components;
+using BlazorApp.Lib.Sanity.Clients;
 using BlazorApp.Services.Weather.Forecasts;
 
 
@@ -16,6 +17,8 @@ builder.Services.AddHttpClient("Default", client =>
 });
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Default"));
+
+builder.Services.AddHttpClient<SanityClient>();
 
 var app = builder.Build();
 
