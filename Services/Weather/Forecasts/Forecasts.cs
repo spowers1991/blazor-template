@@ -8,7 +8,7 @@ public class Forecasts : ControllerBase
 {
     public static Forecast.Types.Forecast[]? _forecasts;
 
-    [HttpGet]
+    [HttpGet("all")]
     public ActionResult<Forecast.Types.Forecast[]> GetAll()
     {
         // Cache the data on first call
