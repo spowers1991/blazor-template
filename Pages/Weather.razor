@@ -5,23 +5,26 @@
 @using BlazorApp.Components.Services.Weather.Forecasts.WeatherTable
 @using BlazorApp.Services.Weather.Forecasts.Forecast.Types
 
+@using BlazorApp.Components.HTML.H1
+@using BlazorApp.Components.HTML.P
+
 <PageTitle>
     Weather
 </PageTitle>
 
 <H1>
     Weather
-</h1>
+</H1>
 
-<p>
+<P>
     This component demonstrates showing data.
-</p>
+</P>
 
 
 
 @if (forecasts == null || forecasts.Length == 0)
 {
-    <p><em>Loading...</em></p>
+    <P><em>Loading...</em></P>
 }
 else
 {
@@ -36,6 +39,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<Forecast[]>("api/Forecasts") ?? Array.Empty<Forecast>();
+        forecasts = await Http.GetFromJsonAsync<Forecast[]>("api/Forecasts/all") ?? Array.Empty<Forecast>();
     }
 }
