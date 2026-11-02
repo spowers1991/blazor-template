@@ -1,0 +1,69 @@
+@using BlazorApp.Components.HTML.Table
+@using BlazorApp.Components.HTML.Tbody
+@using BlazorApp.Components.HTML.Thead
+@using BlazorApp.Components.HTML.Tr
+@using BlazorApp.Components.HTML.Th
+@using BlazorApp.Components.HTML.A
+@using BlazorApp.Components.Services.Movies.Movie
+@using BlazorApp.Components.Filters.Search
+@using BlazorApp.Components.Filters.Checkboxes
+@using BlazorApp.Components.Filters.Checkboxes.Checkbox
+@using MovieModel = BlazorApp.Services.Movies.Movie.Types.Movie
+@using BlazorApp.Services.Movies.Movie.Types
+@using BlazorApp.Lib.Filters
+
+<Search @bind-Value="filter.Title" placeholder="Filter by title..." aria-label="Filter movies by title" />
+
+<Checkboxes>
+    <Checkbox @bind-Checked="filter.OnlyRecent">Released since 2000</Checkbox>
+</Checkboxes>
+
+<Table>
+    <Thead>
+        <Tr>
+            <Th>Title</Th>
+            <Th>Release date</Th>
+        </Tr>
+    </Thead>
+    <Tbody>
+        @foreach (MovieModel movie in FilteredMovies)
+        {
+            if (movie != null && movie.Slug != null)
+            {
+                <A href="@(value: $"/movies/{movie?.Slug.Current}")">
+                    @movie?.Title
+                </A>
+            }
+        }
+    </Tbody>
+</Table>
+
+@if (!FilteredMovies.Any())
+{
+    <p>No movies match your filter.</p>
+}
+
+@code {
+    private readonly MovieFilter filter = new MovieFilter();
+
+    [CascadingParameter]
+    public MovieModel[] movies { get; set; } = Array.Empty<MovieModel>();
+
+    private IEnumerable<MovieModel> FilteredMovies => Filter.Execute(movies, BuildConfig());
+
+    private FilterConfig<MovieModel> BuildConfig()
+    {
+        var config = new FilterConfig<MovieModel>
+        {
+            Text = filter.Title,
+            TextSelector = m => m.Title
+        };
+
+        if (filter.OnlyRecent)
+        {
+            config.Predicates.Add(m => m.IsReleasedSince(2000));
+        }
+
+        return config;
+    }
+}
