@@ -1,3 +1,4 @@
+@using Blazorise.Animate
 @using BlazorApp.Components.HTML.Table
 @using BlazorApp.Components.HTML.Tbody
 @using BlazorApp.Components.HTML.Thead
@@ -18,25 +19,24 @@
     <Checkbox @bind-Checked="filter.OnlyRecent">Released since 2000</Checkbox>
 </Checkboxes>
 
-<Table>
-    <Thead>
-        <Tr>
-            <Th>Title</Th>
-            <Th>Release date</Th>
-        </Tr>
-    </Thead>
-    <Tbody>
-        @foreach (MovieModel movie in FilteredMovies)
+<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:1rem; margin-top:1rem;">
+    @{
+        string filterKey = $"{filter.Title}|{filter.OnlyRecent}";
+        int index = 0;
+    }
+    @foreach (MovieModel movie in FilteredMovies)
+    {
+        if (movie != null && movie.Slug != null)
         {
-            if (movie != null && movie.Slug != null)
-            {
-                <A href="@(value: $"/movies/{movie?.Slug.Current}")">
-                    @movie?.Title
-                </A>
-            }
+            <Animate @key="@($"{filterKey}|{movie.Slug.Current}")" Animation="Animations.FadeIn" Duration="TimeSpan.FromMilliseconds(400)" DelayMilliseconds="@(index++ * 60)" Trigger="AnimationTrigger.Render" Visible="true">
+                <a href="/movies/@movie.Slug.Current"
+                   style="display:block; padding:1.25rem 1.5rem; border:1px solid #ddd; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.08); text-decoration:none; font-weight:600;">
+                    @movie.Title
+                </a>
+            </Animate>
         }
-    </Tbody>
-</Table>
+    }
+</div>
 
 @if (!FilteredMovies.Any())
 {

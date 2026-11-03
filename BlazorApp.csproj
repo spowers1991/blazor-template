@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Blazorise.Animate" Version="2.4.1" />
+    <PackageReference Include="Blazorise.Bootstrap5" Version="2.4.1" />
+  </ItemGroup>
+
 </Project>
