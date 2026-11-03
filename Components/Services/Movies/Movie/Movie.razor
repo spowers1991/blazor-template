@@ -1,11 +1,48 @@
-@using BlazorApp.Components.HTML.Tr
-@using BlazorApp.Components.HTML.Td
+@using BlazorApp.Components.HTML.H1
+@using BlazorApp.Components.HTML.P
 @using MovieModel = BlazorApp.Services.Movies.Movie.Types.Movie
 
-<Tr>
-    <Td>@Data.Title</Td>
-    <Td>@Data.ReleaseDate</Td>
-</Tr>
+<H1>@Data.Title</H1>
+
+<dl>
+    <dt>Release date</dt>
+    <dd>@Data.ReleaseDate</dd>
+    <dt>Popularity</dt>
+    <dd>@Data.Popularity</dd>
+    <dt>External ID</dt>
+    <dd>@Data.ExternalId</dd>
+</dl>
+
+@if (Data.Overview is { Count: > 0 })
+{
+    <h2>Overview</h2>
+    @foreach (var block in Data.Overview)
+    {
+        <P>@string.Concat(block.Children?.Select(c => c.Text) ?? Enumerable.Empty<string?>())</P>
+    }
+}
+
+@if (Data.CastMembers is { Count: > 0 })
+{
+    <h2>Cast</h2>
+    <ul>
+        @foreach (var cast in Data.CastMembers)
+        {
+            <li>@cast.Person?.Ref &mdash; @cast.CharacterName</li>
+        }
+    </ul>
+}
+
+@if (Data.CrewMembers is { Count: > 0 })
+{
+    <h2>Crew</h2>
+    <ul>
+        @foreach (var crew in Data.CrewMembers)
+        {
+            <li>@crew.Person?.Ref &mdash; @crew.Job (@crew.Department)</li>
+        }
+    </ul>
+}
 
 @code {
     [Parameter, EditorRequired]

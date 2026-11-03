@@ -1,0 +1,38 @@
+@page "/movies/{Slug}"
+@inherits Page<MovieModel>
+@inject SanityClient Sanity
+@using BlazorApp.Lib.Razor.Pages
+@using BlazorApp.Lib.Sanity.Clients
+@using BlazorApp.Components.HTML.P
+@using BlazorApp.Components.HTML.A
+@using BlazorApp.Components.Services.Movies.Movie
+@using MovieModel = BlazorApp.Services.Movies.Movie.Types.Movie
+
+<PageTitle>
+    @(Data?.Title ?? "Movie")
+</PageTitle>
+
+<A Href="/movies">&larr; All movies</A>
+
+@if (Loading)
+{
+    <P><em>Loading...</em></P>
+}
+else if (Data == null)
+{
+    <P>Movie not found.</P>
+}
+else
+{
+    <Movie Data="Data" />
+}
+
+@code {
+    [Parameter]
+    public string Slug { get; set; } = string.Empty;
+
+    protected override async Task<MovieModel?> LoadAsync() =>
+        await Sanity.QueryAsync<MovieModel>(
+            "*[_type == \"movie\" && slug.current == $slug][0]",
+            new Dictionary<string, string> { ["slug"] = Slug });
+}

@@ -1,0 +1,20 @@
+<label>
+    <input type="checkbox" checked="@Checked" @onchange="OnChange" @attributes="AdditionalAttributes" />
+    @ChildContent
+</label>
+
+@code {
+    [Parameter]
+    public bool Checked { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> CheckedChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task OnChange(ChangeEventArgs e) => CheckedChanged.InvokeAsync((bool)(e.Value ?? false));
+}
